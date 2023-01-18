@@ -11,7 +11,6 @@ namespace FxCalc.Enums
         Int,
         Decimal,
         Double,
-        Float,
 
     }
 }
