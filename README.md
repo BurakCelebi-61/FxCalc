@@ -1,5 +1,5 @@
 
-#### SimpleCalculation Basic Example
+## SimpleCalculation Basic Example
 
 ```c#
             SimpleCalculation<decimal> calculation = new SimpleCalculation<decimal>();
@@ -10,11 +10,11 @@
             calculation.SetVarible("d", "0,054");
             calculation.Compute();
 ```
-## SimpleCalculation Basic Example Result 1
+#### SimpleCalculation Basic Example Result 1
 ```c#
             var reslut = calculation.Result;
 ```
-## SimpleCalculation Basic Example Result 2
+#### SimpleCalculation Basic Example Result 2
 ```c#
             var reslut = calculation.Compute();
 ```
