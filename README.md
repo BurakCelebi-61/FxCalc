@@ -18,3 +18,15 @@
 ```c#
             var reslut = calculation.Compute();
 ```
+#### SimpleCalculation Specifying the data entry type
+```c#
+            SimpleCalculation<decimal> calculation = new SimpleCalculation<decimal>(FxCalc.Enums.InputType.Double);
+            SimpleCalculation<decimal> calculation = new SimpleCalculation<decimal>(FxCalc.Enums.InputType.Decimal);
+            SimpleCalculation<decimal> calculation = new SimpleCalculation<decimal>(FxCalc.Enums.InputType.Int);
+```
+#### SimpleCalculation Result Type options
+```c#
+            SimpleCalculation<decimal> calculation = new SimpleCalculation<decimal>();
+            SimpleCalculation<double> calculation = new SimpleCalculation<double>();
+            SimpleCalculation<int> calculation = new SimpleCalculation<int>();
+```
