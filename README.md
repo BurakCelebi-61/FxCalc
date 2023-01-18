@@ -12,11 +12,11 @@
 ```
 #### SimpleCalculation Basic Example Result 1
 ```c#
-            var reslut = calculation.Result;
+            var result = calculation.Result;
 ```
 #### SimpleCalculation Basic Example Result 2
 ```c#
-            var reslut = calculation.Compute();
+            var result = calculation.Compute();
 ```
 #### SimpleCalculation Specifying the data entry type
 ```c#
