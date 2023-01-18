@@ -8,5 +8,5 @@
             calculation.SetVarible("b", "200");
             calculation.SetVarible("c", "-15");
             calculation.SetVarible("d", "0,054");
-            calculation.Compute()
+            calculation.Compute();
 ```
