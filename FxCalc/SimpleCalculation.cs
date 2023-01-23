@@ -13,9 +13,9 @@ namespace FxCalc
         /// </summary>
         public SimpleCalculation()
         {
-            Formule  = string.Empty;
+            Formule = string.Empty;
             eng = new Engine<T>();
-            Varibles = new List<BasicVarible>();
+            Varibles = new List<ISimpleVarible>();
         }
         /// <summary>
         /// Basit şekilde sadece isim ve değer alarak formülü hesaplar.
@@ -25,14 +25,14 @@ namespace FxCalc
         {
             Formule = string.Empty;
             eng = new Engine<T>(type);
-            Varibles = new List<BasicVarible>();
+            Varibles = new List<ISimpleVarible>();
         }
         private Engine<T> eng { get; set; }
         public string Formule { get; set; }
         public InputType InputType { get; set; }
         public T Result { get; set; }
-        public List<BasicVarible> Varibles { get; private set; }
-        public void SetVarible(string name,string value)
+        public List<ISimpleVarible> Varibles { get; private set; }
+        public virtual void SetVarible(string name, string value)
         {
             foreach (var v in Varibles)
             {
@@ -42,9 +42,9 @@ namespace FxCalc
                     return;
                 }
             }
-            Varibles.Add(new BasicVarible { Name = name, Value = value });
+            Varibles.Add(new SimpleVarible { Name = name, Value = value });
         }
-        public void SetVarible(BasicVarible varible)
+        public virtual void SetVarible(ISimpleVarible varible)
         {
             foreach (var v in Varibles)
             {
@@ -56,15 +56,19 @@ namespace FxCalc
             }
             Varibles.Add(varible);
         }
-        public void SetVarible(List<BasicVarible> varibles)
+        public virtual void SetVarible(List<ISimpleVarible> varibles)
         {
             foreach (var v in varibles)
             {
                 SetVarible(v);
             }
         }
-        public void Compute()
+        public virtual T Compute(string? newFormule = null)
         {
+            if (newFormule != null)
+            {
+                Formule = newFormule;
+            }
             if (Formule != string.Empty)
             {
                 var resfor = Formule;
@@ -74,7 +78,25 @@ namespace FxCalc
                 }
                 Result = eng.Compute(resfor);
             }
-            
+            return Result;
+        }
+        public virtual T Compute(List<ISimpleVarible> setVaribles)
+        {
+            var varib = Varibles;
+            if (setVaribles != null)
+            {
+                varib = setVaribles;
+            }
+            if (Formule != string.Empty)
+            {
+                var resfor = Formule;
+                foreach (var v in varib)
+                {
+                    resfor = resfor.Replace(v.Name, v.Value);
+                }
+                Result = eng.Compute(resfor);
+            }
+            return Result;
         }
     }
 }

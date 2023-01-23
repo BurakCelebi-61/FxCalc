@@ -1,14 +1,8 @@
 ﻿using FxCalc.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FxCalc
 {
-    public class Engine<T> where T: struct
+    public class Engine<T> where T : struct
     {
         public string Formule { get; set; }
         public ReturnType returnType { get; set; }
@@ -43,10 +37,11 @@ namespace FxCalc
         {
             inputType = _inputType;
             T it = new T();
-            if (it.GetType() == typeof(decimal) )
+            if (it.GetType() == typeof(decimal))
             {
                 returnType = ReturnType.Decimal;
-            }else if(it.GetType() == typeof(double))
+            }
+            else if (it.GetType() == typeof(double))
             {
                 returnType = ReturnType.Double;
             }
@@ -56,184 +51,12 @@ namespace FxCalc
             }
 
         }
-        /// <summary>
-        /// İşlem Ağaçlandırma. Formulü parçalarına ayırıp işlem yapmaya gönderir.
-        /// </summary>
-        /// <param name="formule">işleme hazır değerleri yüklenmiş formül</param>
-        //public ProcessFile ProcessFiling(string formule,ProcessInputType İnputType,int startIndex)
-        //{
-        //    string processedString = formule.Replace("*", "a").Replace("/", "b").Replace("+", "c");
-        //    string processedString2 = formule.Replace("*", "a").Replace("/", "b").Replace("+", "c");
-        //    var value = new ProcessFile() { StartIndex = startIndex};
-        //    value.OldValue = processedString;
-        //    value.StartValue = processedString;
-        //Recheck:
-        //    var b = processedString.ToArray();
-        //    if (b[0] == '-')
-        //    {
-        //        b[0] = 'e';
-        //    }
-        //    for (int i = 1; i < b.Length; i++)
-        //    {
-        //        if (b[i - 1] == '(' || b[i - 1] == 'a' || b[i - 1] == 'b' || b[i - 1] == 'c')
-        //        {
-        //            if (b[i] == '-')
-        //            {
-        //                b[i] = 'e';
-        //            }
-        //        }
-        //    }
-        //    processedString = new string(b).Replace("-", "d");
-        //    var a = processedString.ToArray();
-        //    List<FormulaDirectory> formulas = new List<FormulaDirectory>();
-        //    string dz = "";
-
-        //    for (int i = 0; i < a.Length; i++)
-        //    {
-        //        if (a[i] == '(')
-        //        {
-        //            ///5*((-56*4)/-4)
-        //            var s = processedString.Substring(i + 1, processedString.Length - 1 - i);
-        //            var rt1 = ProcessFiling(processedString.Substring(i+1, processedString.Length-1-i),ProcessInputType.SubFormul,i);
-        //            var m2 =  "("+rt1.OldValue + ")";
-        //            var m3 = processedString.Replace(m2, rt1.Value);
-        //            processedString = m3;
-
-        //            goto Recheck;
-        //        }
-        //        else if (a[i] == ')')
-        //        {
-        //            var rt1 = ProcessFiling(processedString.Substring(i + 1, processedString.Length - 1 - i), ProcessInputType.SubFormul, i);
-        //            if (Transaction(value.Value) == 0)
-        //            {
-        //                //var sta = value.Value.Split('*');
-        //                value.EndIndex = i;
-        //                return value;
-        //            }
-        //            if (Transaction(value.Value) == 1)
-        //            {
-        //                if (value.Value.IndexOf("a") != -1)
-        //                {
-        //                    var sta = value.Value.Split('a');
-        //                    value.OldValue = value.Value;
-        //                    value.Value = OperationTypeSelection(sta[0], sta[1], ProcessType.Multiplication,inputType);
-        //                    value.EndIndex = i;
-        //                    return value;
-        //                }
-        //                else if (value.Value.IndexOf("b") != -1)
-        //                {
-        //                    var sta = value.Value.Split('b');
-        //                    value.OldValue = value.Value;
-        //                    value.Value = OperationTypeSelection(sta[0], sta[1], ProcessType.Division, inputType);
-        //                    value.EndIndex = i;
-        //                    return value;
-        //                }
-        //                else if (value.Value.IndexOf("c") != -1)
-        //                {
-        //                    var sta = value.Value.Split('c');
-        //                    value.OldValue = value.Value;
-        //                    value.Value = OperationTypeSelection(sta[0], sta[1], ProcessType.Addition, inputType);
-        //                    value.EndIndex = i;
-        //                    return value;
-        //                }
-        //                else if (value.Value.IndexOf("d") != -1)
-        //                {
-        //                    var sta = value.Value.Split('d');
-        //                    value.OldValue = value.Value;
-        //                    value.Value = OperationTypeSelection(sta[0], sta[1], ProcessType.Subtraction, inputType);
-        //                    value.EndIndex = i;
-        //                    return value;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                string s = value.Value;
-        //            rh:
-        //                //String[] delimiters = { "a", "b", "c", "d" };
-        //                //String[] delimiters = { "*", "/", "+", "-" };
-        //                var g = s.ToArray();
-        //                for (int z = 0; z < g.Length; z++)
-        //                {
-        //                    if (z!=0)
-        //                    {
-        //                        if (g[z]=='e')
-        //                        {
-        //                            if (g[z-1]!= 'a' || g[z - 1] != 'b')
-        //                            {
-        //                                g[z] = 'd';
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //                s = new string(g);
-        //                String[] delimiters = { "a", "b","c","d" };
-        //                String[] vl = s.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);//değerler
-        //                String[] oo = s.Split(vl, StringSplitOptions.RemoveEmptyEntries);//işlem operatorleri
-        //                if (vl.Length == 1)
-        //                {
-        //                    value.Value = s;
-        //                    value.EndIndex = i;
-        //                    return value;
-        //                }
-        //                value.EndIndex = i;
-        //                //ilkçarpan veya bölmeni bul
-        //                for (int oi = 0; oi < oo.Length; oi++)
-        //                {
-        //                    if (oo[oi]=="a")
-        //                    {
-        //                        var s2 = OperationTypeSelection(vl[oi], vl[oi+1], ProcessType.Multiplication, inputType);
-        //                        string r = vl[oi] + "a" + vl[oi + 1];
-        //                        s = s.Replace(r, s2);
-        //                        value.EndIndex = i;
-        //                        goto rh;
-        //                    }
-        //                    else if (oo[oi] == "b")
-        //                    {
-        //                        var s2 = OperationTypeSelection(vl[oi], vl[oi + 1], ProcessType.Division, inputType);
-        //                        s = s.Replace(vl[oi] + "b" + vl[oi + 1], s2);
-        //                        value.EndIndex = i;
-        //                        goto rh;
-        //                    }
-        //                }
-        //                //topla çıkartma işlemi
-        //                for (int oi = 0; oi < oo.Length; oi++)
-        //                {
-        //                    if (oo[oi] == "c")
-        //                    {
-        //                        var s2 = OperationTypeSelection(vl[oi], vl[oi + 1], ProcessType.Addition, inputType);
-        //                        s = s.Replace(vl[oi] + "c" + vl[oi + 1], s2);
-        //                        value.EndIndex = i;
-        //                        goto rh;
-        //                    }
-        //                    else if (oo[oi] == "d")
-        //                    {
-        //                        var s2 = OperationTypeSelection(vl[oi], vl[oi + 1], ProcessType.Subtraction, inputType);
-        //                        s = s.Replace(vl[oi] + "d" + vl[oi + 1], s2);
-        //                        value.EndIndex = i;
-        //                        goto rh;
-        //                    }
-        //                }
-        //                value.EndIndex = i;
-
-        //            }
-        //        }
-        //        else
-        //        {
-        //            value.EndIndex = i;
-        //            value.Value +=a[i];
-        //        }
-
-        //    }
-
-        //    return value;
-        //}
-        
         public T Compute(string formule)
         {
             ///(5*((-56*4)/-4))
             string s1 = $"{formule}";
-            
-            
+
+
         rh1:
             string s3 = s1.Replace("*", "a").Replace("/", "b").Replace("+", "c");
             var b = s3.ToArray();
@@ -260,19 +83,19 @@ namespace FxCalc
             string s2 = "";
             for (int i = 0; i < s1.Length; i++)
             {
-                if (s1[i]=='(')
+                if (s1[i] == '(')
                 {
                     s2 = "";
                 }
-                else if (s1[i]==')')
+                else if (s1[i] == ')')
                 {
                     var ss = Clac(s2);
-                    s1 = s1.Replace("("+s2+")", ss);
+                    s1 = s1.Replace("(" + s2 + ")", ss);
                     goto rh1;
                 }
                 else
                 {
-                    s2+=s1[i];
+                    s2 += s1[i];
                 }
             }
             var ss2 = Clac(s2);
@@ -287,14 +110,14 @@ namespace FxCalc
                 default:
                     return (T)((object)ss2.ToInt());
             }
-            
+
         }
         public string Clac(string select)
         {
             var ret = "";
             if (Transaction(select) == 0)
             {
-                
+
                 return select;
             }
             if (Transaction(select) == 1)
@@ -314,13 +137,13 @@ namespace FxCalc
                     var sta = select.Split('c');
 
                     return OperationTypeSelection(sta[0], sta[1], ProcessType.Addition, inputType);
-                    
+
                 }
                 else if (select.IndexOf("d") != -1)
                 {
                     var sta = select.Split('d');
                     return OperationTypeSelection(sta[0], sta[1], ProcessType.Subtraction, inputType);
-                    
+
                 }
             }
             else
