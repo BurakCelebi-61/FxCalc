@@ -1,4 +1,8 @@
-﻿namespace FxCalc
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FxCalc
 {
     public class ConditionalCalculation<T> : UnitaryCalculation<T> where T : struct
     {
@@ -8,7 +12,7 @@
         }
         public List<ConditionalFormula> Formules { get; set; }
         public ConditionalFormula SelectFormule { get; set; }
-        public override T Compute(string? newFormule = null)
+        public override T Compute(string newFormule = "")
         {
             ConditionAssessment();
             if (SelectFormule != null)

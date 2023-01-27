@@ -1,4 +1,6 @@
 ﻿using FxCalc.Enums.Units;
+using System;
+using System.Linq;
 using System.Reflection;
 
 namespace FxCalc.CustomAttribute
@@ -37,6 +39,8 @@ namespace FxCalc.CustomAttribute
             }
 
         }
+
+
         public UnitData AsUnitData()
         {
             return new UnitData

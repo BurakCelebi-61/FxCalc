@@ -1,4 +1,5 @@
 ﻿using FxCalc.Enums;
+using System.Collections.Generic;
 
 namespace FxCalc
 {
@@ -63,9 +64,9 @@ namespace FxCalc
                 SetVarible(v);
             }
         }
-        public virtual T Compute(string? newFormule = null)
+        public virtual T Compute(string newFormule = "")
         {
-            if (newFormule != null)
+            if (newFormule != string.Empty)
             {
                 Formule = newFormule;
             }

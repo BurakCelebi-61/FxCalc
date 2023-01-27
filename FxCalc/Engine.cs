@@ -1,4 +1,6 @@
 ﻿using FxCalc.Enums;
+using System;
+using System.Linq;
 
 namespace FxCalc
 {

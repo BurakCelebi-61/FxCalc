@@ -1,5 +1,7 @@
 ﻿using FxCalc.CustomAttribute;
 using FxCalc.Enums.Units;
+using System;
+using System.Collections.Generic;
 
 namespace FxCalc
 {
@@ -23,9 +25,9 @@ namespace FxCalc
         private string eur = "1";
         #endregion
         public List<UnitaryVarible> EditedVaribles { get; set; }
-        public override T Compute(string? newFormule = null)
+        public override T Compute(string newFormule = "")
         {
-            if (newFormule != null)
+            if (newFormule != "")
             {
                 Formule = newFormule;
             }
