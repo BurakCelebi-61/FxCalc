@@ -1,6 +1,5 @@
 ﻿using FxCalc.CustomAttribute;
 using FxCalc.Enums.Units;
-using System.Collections.Generic;
 
 namespace FxCalc
 {
@@ -32,7 +31,7 @@ namespace FxCalc
             }
 
             EditedVaribles = new List<UnitaryVarible>();
-            
+
             foreach (var v in Varibles)
             {
                 var varib = v as UnitaryVarible;
@@ -181,35 +180,36 @@ namespace FxCalc
                     Units = v.Units,
                     Value = dobv2.ToString()
                 };
-            }else
+            }
+            else
             {
                 {
-                decv1 = v.Value.ToDecimal() * ud.DefaultValue.ToDecimal();
+                    decv1 = v.Value.ToDecimal() * ud.DefaultValue.ToDecimal();
 
-                if (CurrencyUnit == CurrencyUnit.USD)
-                {
-                    decv2 = decv1 / usd.ToDecimal();
+                    if (CurrencyUnit == CurrencyUnit.USD)
+                    {
+                        decv2 = decv1 / usd.ToDecimal();
+                    }
+                    else if (CurrencyUnit == CurrencyUnit.EUR)
+                    {
+                        decv2 = decv1 / eur.ToDecimal();
+                    }
+                    else
+                    {
+                        decv2 = decv1;
+                    }
+                    return new UnitaryVarible
+                    {
+                        Name = v.Name,
+                        Units = v.Units,
+                        Value = decv2.ToString()
+                    };
                 }
-                else if (CurrencyUnit == CurrencyUnit.EUR)
-                {
-                    decv2 = decv1 / eur.ToDecimal();
-                }
-                else
-                {
-                    decv2 = decv1;
-                }
-                return new UnitaryVarible
-                {
-                    Name = v.Name,
-                    Units = v.Units,
-                    Value = decv2.ToString()
-                };
-            }
             }
         }
-        public void SetCurrency(decimal USD,decimal EUR)
+        public void SetCurrency(decimal USD, decimal EUR)
         {
-            SetVarible(new UnitaryVarible { Name = "[EUR]",Value = EUR.ToString() });
+            SetVarible(new UnitaryVarible { Name = "[EUR]", Value = EUR.ToString() });
             SetVarible(new UnitaryVarible { Name = "[USD]", Value = USD.ToString() });
         }
         public void SetCurrency(double USD, double EUR)

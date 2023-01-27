@@ -46,11 +46,11 @@ namespace FxCalcTest
             calculation.SetCurrency(18.41m, 20.4m);
             calculation.Formule = "[Pres]+[PVCUnitPrice]+[Color]";
             calculation.SetVarible(
-                new UnitaryVarible 
-                { 
+                new UnitaryVarible
+                {
                     Name = "[Pres]",
                     Value = "5,23",
-                    Units = new List<Enum> { { CurrencyUnit.USD }, { WeightUnit.Kilogram} }
+                    Units = new List<Enum> { { CurrencyUnit.USD }, { WeightUnit.Kilogram } }
                 });
             calculation.SetVarible(
                 new UnitaryVarible
@@ -65,6 +65,58 @@ namespace FxCalcTest
                     Name = "[Color]",
                     Value = "18",
                     Units = new List<Enum> { { WeightUnit.Kilogram }, { CurrencyUnit.TRY } }
+                });
+            calculation.Compute();
+
+        }
+
+        [Test]
+        public void ConditionalCalculationTest()
+        {
+            ConditionalCalculation<decimal> calculation = new ConditionalCalculation<decimal>();
+            calculation.AreaUnit = FxCalc.Enums.Units.AreaUnit.SquareDecameter;
+            calculation.CurrencyUnit = FxCalc.Enums.Units.CurrencyUnit.USD;
+            calculation.LengthUnit = FxCalc.Enums.Units.LengthUnit.Meter;
+            calculation.PieceUnit = FxCalc.Enums.Units.PieceUnit.Piece;
+            calculation.VolumeUnit = FxCalc.Enums.Units.VolumeUnit.CubicMeter;
+            calculation.WeightUnit = FxCalc.Enums.Units.WeightUnit.Kilogram;
+            calculation.SetCurrency(18.41m, 20.4m);
+            calculation.Formules.Add(new ConditionalFormula
+            {
+                Conditional = "[ProfileBarrierType]==PVC || [ProfileBarrierType]==POLYAMIDE",
+                Formula = "[Pres]+[PVCUnitPrice]+[Color]"
+            });
+            calculation.Formules.Add(new ConditionalFormula
+            {
+                Conditional = "[ProfileBarrierType]==POLYAMIDE",
+                Formula = "[Pres]+[PVCUnitPrice]+[Color]"
+            });
+            calculation.SetVarible(
+                new UnitaryVarible
+                {
+                    Name = "[Pres]",
+                    Value = "5,23",
+                    Units = new List<Enum> { { CurrencyUnit.USD }, { WeightUnit.Kilogram } }
+                });
+            calculation.SetVarible(
+                new UnitaryVarible
+                {
+                    Name = "[PVCUnitPrice]",
+                    Value = "0,06",
+                    Units = new List<Enum> { { CurrencyUnit.EUR }, { LengthUnit.Meter } }
+                });
+            calculation.SetVarible(
+                new UnitaryVarible
+                {
+                    Name = "[Color]",
+                    Value = "18",
+                    Units = new List<Enum> { { WeightUnit.Kilogram }, { CurrencyUnit.TRY } }
+                });
+            calculation.SetVarible(
+                new UnitaryVarible
+                {
+                    Name = "[ProfileBarrierType]",
+                    Value = "PVC"
                 });
             calculation.Compute();
 

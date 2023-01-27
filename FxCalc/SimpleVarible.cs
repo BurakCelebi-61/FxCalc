@@ -3,7 +3,7 @@
 namespace FxCalc
 {
     [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
-    public class SimpleVarible:ISimpleVarible
+    public class SimpleVarible : ISimpleVarible
     {
         public string Name { get; set; }
         public string Value { get; set; }
